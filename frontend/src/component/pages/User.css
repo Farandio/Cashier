@@ -1,0 +1,132 @@
+.list-user {
+    display: flex;
+}
+
+.user-title {
+    text-align: center;
+    font-size: 60px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #1c2237;
+}
+
+.user-title1 {
+    text-align: center;
+    font-size: 60px;
+    margin-top: -75px;
+    margin-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #1c2237;
+}
+
+.list {
+    list-style: none;
+}
+
+.button-add{
+    height: 45px;
+    width: 155px;
+    margin-right: -75px;
+    margin-left: 530px;
+    text-align: center;
+    border-radius: 9px;
+    border: #ffffff;
+    font-family: cursive;
+    background-color: #0c43c5;
+    color: #fff;
+}
+
+
+.button-add:hover{
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: #1c2237;
+}
+.row{
+    border: solid #1c2237 ;
+    background-color: #1c2237;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+
+
+
+
+
+
+.row:hover{
+    transform: scale(1.03);
+    transition: all 0.3s ease;
+}
+
+
+
+.item1{
+    display: flex;
+    font-size: 20px;
+    color: black;
+}
+
+
+
+.title1{
+    display: flex;
+    font-size: 20px;
+    color: black;
+}
+
+.text{
+    margin : 7px;
+    font-size: 18px;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+.isi{
+    color: #fff;
+    margin: 5px;
+    font-size: 23px;
+}
+
+.edit{
+    border: solid #fff;
+    height: 50px;
+    width: 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-left: 35px;
+    margin-top: 15px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
+
+.delete{
+    border: solid #fff;
+    height: 50px;
+    width: 50px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.icon{
+    color: #1c2237;
+    font-size:25px;
+}
+
+.delete:hover{
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    background-color: #f00946;
+    border: solid #f00946;  
+}
+.edit:hover{
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    background-color: #ffea00;
+    border: solid #ffea00;
+}
+

@@ -1,0 +1,196 @@
+.form-2 {
+    border: solid;
+    align-items: center;
+    margin-top: 130px;
+    margin-left: 30% ;
+    width: 485px;
+    height: 535px;
+    border-radius: 30px;
+    border-color: #1c2237;
+    text-align: center;
+    background-color: #1c2237;
+}
+
+.title{
+    color: #fff;
+    margin-top: 30px;
+    font-size: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+.input1{
+    font-size: 18px;
+    width: 270px;
+    text-align: center;
+    color: #000000;
+    height: 45px;
+    margin-top: 5px;
+    border-color:#ffffff ;
+    border-radius: 35px;
+    background-color: #fff;  
+}
+
+.input1:hover,
+.input2:hover{
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    
+}
+
+
+.input2 {
+    font-size: 18px;
+    width: 270px;
+    text-align: center;
+    color: #000000;
+    height: 45px;
+    border: #1c2237;
+    margin-top: 5px;
+    border-radius: 35px;
+    background-color: #fff;
+    
+}
+
+.sign1 {
+    height: 40px;
+    width: 120px;
+    text-align: center;
+    border-radius: 5px;
+    border: #ffffff;
+    font-family: cursive;
+    background-color: #1f4aa8;
+    color: #fff;
+}
+
+.sign1:hover{
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    background-color: rgb(255, 255, 255);
+    border: solid #fff;
+    color: #1c2237;
+}
+
+.sign2{
+    text-decoration:underline ;
+    color : #a2e0ff ;
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.i{
+    color: #fff;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0px;
+}
+
+.o{
+    color: #fff;
+
+}
+
+.sign3{ 
+        text-decoration:underline ;
+        color : #a2e0ff ;
+        font-size: 20px;  
+}
+
+.sign4{
+    text-decoration:underline ;
+    color : #fe1313 ;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.I1 {
+    display: flex;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    margin-left: 3pt;
+}
+
+
+.I2{
+    display: flex;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight:normal;
+    font-size: 15px;
+    margin-left: 4pt;
+}
+
+.FaUser{
+    display:flex;
+    color: #fff;
+    font-size: 18px;
+    
+}
+
+.FaKey{
+    display: flex;
+    color: #fff;
+    font-size: 20px;
+    
+}
+ 
+.label {
+    display: flex;
+    margin-top: 40px;
+    margin-left: 110px;
+}
+
+.label2{
+    display: flex;
+    margin-top: 20px;
+    margin-left: 110px;
+}
+
+.sign2:hover,
+.sign3:hover {
+    color: #fff;
+    transform: scale(2.0);
+    transition: all 0.3s ease;
+}
+
+.form-2R {
+    border: solid;
+    align-items: center;
+    margin-top: 80px;
+    margin-left: 25% ;
+    max-width: 50%;
+    height: 800px;
+    border-radius: 30px;
+    border-color: #1c2237;
+    text-align: center;
+    background-color: #1c2237;
+    margin-bottom: 50px;
+}
+
+.I3 {
+    display: flex;
+    color: #fff;
+    font-family:sans-serif;
+    font-weight:normal;
+    font-size: 15px;
+    margin-left: 4pt;
+}
+
+.FaReg {
+    display: flex;
+    color: #fff;
+    font-size: 20px;
+}
+.label4{
+    display: flex;
+    margin-top: 15px;
+    margin-left: 160px;
+}
+
+.label3{
+    display: flex;
+    margin-top: 20px;
+    margin-left: 160px;
+}

@@ -1,0 +1,126 @@
+.navbar-user {
+    background: #1c2237;
+    height: 63px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 1.5rem;
+    position: sticky;
+    top: 0;  
+}
+
+.FaBars{
+    font-size: 28px; 
+}
+
+
+.menu-bars {
+    color: white;
+    font-size: 0px;
+    margin-left: 30px;   
+}
+
+.menu-bars:hover {
+   color:#6b6b6b ;
+   transform: scale(1.2);
+   transition: all 0.3s ;
+}
+
+.user {
+    margin-top: 0pt;
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    margin-right: 15px;
+    margin-left: 80%;
+
+}
+
+.user1 {
+    color: #fff;
+    font-size: 25px;
+    display: flex;
+    margin-right: 10px;
+}
+
+
+.menu-bars1{
+    color: white;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.menu-bars1:hover{
+    color: #6b6b6b;
+}
+
+.nav-menu1 {
+    background-color: #1c2237;
+    width: 320px;
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: 850ms;
+}
+
+.nav-menu1.active {
+    left: 0px;
+    transition: 350ms;
+}
+
+.nav-text{
+    
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 8px 8px 8px 16px;
+    list-style: none;
+    height: 90px;
+   
+}
+
+.nav-text a {
+    text-decoration: none;
+    color: white;
+    font-size: 23px;
+    width: 96%;
+    height: 100%;
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 4px;
+}
+
+.how{
+    color: #f00946;
+}
+.nav-text a:hover{
+    background-color:#1a83ff ;
+    color: #fff;
+    
+}
+
+.nav-menu-items{
+    width: 100%;
+}
+
+.navbar-toggle{
+    background-color: #1c2237;
+    width: 10px;
+    margin: 50px 10px 20px;
+    font-size: 30px;
+    height: 10px;
+    display:flex;
+    justify-content: start;
+    align-items: center;
+    
+}
+
+span{
+    margin-left: 16px;
+}
