@@ -101,59 +101,10 @@ app.delete("/:id", auth, async (req, res) => {
         })
 })
 
-//LOGIN Admin
-app.post("/admin", async (req, res) => {
+app.post("/login", async (req, res) => {
     let param = {
         username: req.body.username,
         password: md5(req.body.password),
-        role: "admin"
-    }
-    let result = await user.findOne({ where: param })
-    if (result) {
-        let payload = JSON.stringify(result)
-        let token = jwt.sign(payload, SECRET_KEY)
-        res.json({
-            logged: true,
-            data: result,
-            token: token
-        })
-    } else {
-        res.json({
-            logged: false,
-            message: "Username atau Password salah"
-        })
-    }
-})
-
-//LOGIN user
-app.post("/kasir", async (req, res) => {
-    let param = {
-        username: req.body.username,
-        password: md5(req.body.password),
-        role: "kasir"
-    }
-    let result = await user.findOne({ where: param })
-    if (result) {
-        let payload = JSON.stringify(result)
-        let token = jwt.sign(payload, SECRET_KEY)
-        res.json({
-            logged: true,
-            data: result,
-            token: token
-        })
-    } else {
-        res.json({
-            logged: false,
-            message: "Username atau Password salah"
-        })
-    }
-})
-
-app.post("/manajer", async (req, res) => {
-    let param = {
-        username: req.body.username,
-        password: md5(req.body.password),
-        role: "manajer"
     }
     let result = await user.findOne({ where: param })
     if (result) {

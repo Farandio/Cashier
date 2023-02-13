@@ -36,6 +36,23 @@ app.get("/:id", async (req, res) => {
         })
 })
 
+app.get("/status/:status_meja", async (req, res) => {
+    let param = {
+        status_meja: req.params.status_meja
+    }
+    meja.findAll({ where: param })
+        .then(result => {
+            res.json({
+                data: result
+            })
+        })
+        .catch(error => {
+            res.json({
+                message: error.message
+            })
+        })
+})
+
 app.post("/", async (req, res) => {
     let data = {
         nomor_meja: req.body.nomor_meja,
