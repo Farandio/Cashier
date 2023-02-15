@@ -3,6 +3,8 @@ const app = express()
 const cors = require("cors")
 app.use(cors())
 
+app.use(express.static(__dirname))
+
 const user = require("./router/user")
 app.use("/cashier/api/user", user)
 

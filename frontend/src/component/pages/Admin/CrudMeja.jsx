@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import NavbarUs from '../../Navbar/NavbarUs';
+import NavbarUs from '../../Navbar/NavbarAdmin';
 import $ from "jquery";
 
 export default class Meja extends React.Component {
@@ -142,7 +142,7 @@ export default class Meja extends React.Component {
 
   render() {
     return (
-        <div className='flex h-screen w-full bg-main-bg dark:bg-main-bg bg-cover object-cover' >
+        <div className='flex h-screen w-full bg-main-bg dark:bg-secondary-bg bg-cover object-cover' >
                 <div className="w-full h-screen">
                     <NavbarUs />
                     <div className="relative mt-20 overflow-x-auto shadow-md sm:rounded-lg m-2">
@@ -153,7 +153,7 @@ export default class Meja extends React.Component {
                         className="block text-a bg-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white dark:hover:bg-b dark:hover:text-white dark:focus:ring-blue-800"
                         type="button"
                     >
-                        Toggle modal
+                        Tambah Meja
                     </button><br />
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-white uppercase bg-gray-50 dark:bg-a dark:text-white">

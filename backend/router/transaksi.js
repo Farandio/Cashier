@@ -3,6 +3,9 @@ const app = express()
 const moment = require("moment")
 const transaksi = require("../models/index").transaksi
 const detail_transaksi = require("../models/index").detail_transaksi
+const jwt = require("jsonwebtoken")
+const SECRET_KEY = "INIPUNYAKASIR"
+const auth = require("../auth")
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -79,7 +82,7 @@ app.get("/:id", async (req, res) => {
         })
 })
 
-app.post("/", async (req, res) => {
+app.post("/", auth, async (req, res) => {
     let data_transaksi = {
         tgl_transaksi: moment().format("YYYY-MM-DD"),
         id_user: req.body.id_user,
@@ -108,7 +111,7 @@ app.post("/", async (req, res) => {
         })
 })
 
-app.put("/", async (req, res) => {
+app.put("/", auth, async (req, res) => {
     let param = {
         id_transaksi: req.body.id_transaksi
     }

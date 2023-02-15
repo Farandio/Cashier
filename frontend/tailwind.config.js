@@ -18,7 +18,13 @@ module.exports = {
       },
 
       backgroundImage: {
-        "main-bg": "url('/src/component/assets/one.jpg')"
+        "main-bg": "url('/src/component/assets/bg-bw.png')",
+        "secondary-bg": "url('/src/component/assets/secondary-bg.jpg')",
+        "home-bg": "url('/src/component/assets/home-bg.jpg')"
+      },
+
+      fontFamily: {
+        "main-font": "Baskerville Old Font"
       }
     },
   },
