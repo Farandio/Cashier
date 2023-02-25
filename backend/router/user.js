@@ -40,6 +40,23 @@ app.get("/:id", auth, async (req, res) => {
         })
 })
 
+app.get("/role/:role", auth, async (req, res) => {
+    let param = {
+        role: req.params.role
+    }
+    user.findAll({ where: param })
+        .then(result => {
+            res.json({
+                data: result
+            })
+        })
+        .catch(error => {
+            res.json({
+                message: error.message
+            })
+        })
+})
+
 app.post("/", auth, async (req, res) => {
     let data = {
         nama_user: req.body.nama_user,

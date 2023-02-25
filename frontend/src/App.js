@@ -1,14 +1,15 @@
 import React from 'react'
 import './App.css';
 import {Routes, Route} from 'react-router-dom'
-// import Home from './component/Pages/Home';
-// import User from './component/Pages/User';
+import Login from './component/Login/Login';
+import HomeAdmin from './component/pages/Admin/HomeAdmin'
 import CrudMeja from './component/pages/Admin/CrudMeja';
 import CrudMenu from './component/pages/Admin/CrudMenu';
 import CrudUser from './component/pages/Admin/CrudUser';
-import Login from './component/Login/Login';
-import ListMenu from "./component/pages/Kasir/listMenu"
-import HomeAdmin from './component/pages/Admin/HomeAdmin'
+
+import ListMenu from './component/pages/Kasir/ListMenu';
+
+import HomeManajer from './component/pages/Manajer/HomeManajer';
 // import { PrivateRoute } from './component/IsLogged/PrivateRoute';
 
 function App() {
@@ -16,12 +17,14 @@ function App() {
     <Routes>
         {/* <PrivateRoute exact path="/" component={Meja}/> */}
         <Route path="/" element={<Login/>} />
-        <Route path="/admin/crudMeja" element={<CrudMeja/>} />
+        <Route path="/admin/homeAdmin" element={<HomeAdmin/>} />
         <Route path="/admin/crudMenu" element={<CrudMenu/>} />
         <Route path="/admin/crudUser" element={<CrudUser/>} />
-        <Route path="/admin/homeAdmin" element={<HomeAdmin/>} />
-        <Route path="/admin/listMenu" element={<ListMenu/>} />
+        <Route path="/admin/crudMeja" element={<CrudMeja/>} />
 
+        <Route path="/kasir/listMenu" element={<ListMenu/>} />
+
+        <Route path="/manajer/homeManajer" element={<HomeManajer/>} />
     </Routes>
   )
 }

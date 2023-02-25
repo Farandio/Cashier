@@ -1,72 +1,71 @@
 import React from "react"
 import { Link } from "react-router-dom"
-
+import md5 from "md5"
+import Logo from "../assets/logo/logo.png"
 
 export default class NavbarAdmin extends React.Component {
   Logout = () => {
-      localStorage.removeItem("token")
-      localStorage.removeItem("user")
-      window.location = "/"
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    window.location = "/"
   }
   render() {
-      return (
-          <div>
-            <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-white">
-            <div className="container flex flex-wrap items-center justify-between mx-auto">
-                <span className="self-center text-xl font-extrabold whitespace-nowrap dark:text-a">
-                  FA CASHIER
-                </span>
-              <div
-                className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                id="mobile-menu-language-select"
-              >
-                <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-white md:dark:bg-white dark:border-gray-700">
-                  <li>
+    return (
+      <div>
+      <div className="dark:bg-text-color">
+        <nav className="px-2 sm:px-4 py-2.5 dark:bg-text-color fixed w-full z-20 top-0 left-0 shadow-md shadow-black">
+          {/* <div className="container flex flex-wrap items-center justify-between mx-auto">
+            <div
+              className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+              id="mobile-menu-language-select"
+            > */}
+              <ul className=" flex  p-4 mt-4 border justify-between border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:border-gray-700">
+                <div className="inline-flex">
+                  <li className="">
                     <a
                       href="/manajer/homeManajer"
-                      className="block text-a focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:bg-white dark:hover:bg-b dark:hover:text-white "
+                      className="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:hover:bg-primary-600 dark:hover:text-white"
                       aria-current="page"
                     >
                       Home
                     </a>
                   </li>
-                  <li>
+                  <li className="">
                     <a
-                      href="/crudMenu"
-                      className="block text-a focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:bg-white dark:hover:bg-b dark:hover:text-white "
+                      href="/manajer/trackHistory"
+                      className="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:hover:bg-primary-600 dark:hover:text-white"
                     >
-                      Menu
+                      Track
                     </a>
                   </li>
-                  <li>
+                </div>
+                <div className="justify-center">
+                  <img src={Logo} alt="logo" style={{width: 60}}/>
+                </div>
+                <div className="inline-flex">
+                  <li className="">
                     <a
-                      href="/crudUser"
-                      className="block text-a focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:bg-white dark:hover:bg-b dark:hover:text-white "
+                      href="/manajer/profileManajer"
+                      className="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:hover:bg-primary-600 dark:hover:text-white"
                     >
-                      User
+                      Profile
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="/crudMeja"
-                      className="block text-a focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:bg-white dark:hover:bg-b dark:hover:text-white"
-                    >
-                      Meja
-                    </a>
-                  </li>
-                  <li>
+                  <li className="">
                     <button
-                    onClick={() => this.Logout()}
-                      className="block text-red focus:ring-4 focus:outline-none font-semibold rounded-lg px-5 py-1 dark:bg-white dark:hover:bg-red dark:hover:text-white outline outline-2 dark:outline-red"
+                      onClick={() => this.Logout()}
+                      className="block text-red focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:hover:bg-red dark:hover:text-white"
                     >
                       Logout
                     </button>
                   </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-          </div>
-      )
+                </div>
+              </ul>
+            {/* </div>
+          </div> */}
+        </nav>
+      </div>
+      </div>
+    )
   }
 }

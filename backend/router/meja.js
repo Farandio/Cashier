@@ -1,11 +1,15 @@
 const express = require("express")
 const app = express()
 const meja = require("../models/index").meja
+const md5 = require("md5")
+const jwt = require("jsonwebtoken")
+const SECRET_KEY = "INIPUNYAKASIR"
+const auth = require("../auth")
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get("/", async (req, res) => {
+app.get("/", auth, async (req, res) => {
     meja.findAll()
         .then(result => {
             res.json({
@@ -19,7 +23,7 @@ app.get("/", async (req, res) => {
         })
 })
 
-app.get("/:id", async (req, res) => {
+app.get("/:id", auth, async (req, res) => {
     let param = {
         id_meja: req.params.id
     }
@@ -36,7 +40,7 @@ app.get("/:id", async (req, res) => {
         })
 })
 
-app.get("/status/:status_meja", async (req, res) => {
+app.get("/status/:status_meja", auth, async (req, res) => {
     let param = {
         status_meja: req.params.status_meja
     }
@@ -53,7 +57,7 @@ app.get("/status/:status_meja", async (req, res) => {
         })
 })
 
-app.post("/", async (req, res) => {
+app.post("/", auth, async (req, res) => {
     let data = {
         nomor_meja: req.body.nomor_meja,
         status_meja: "tersedia"
@@ -72,7 +76,7 @@ app.post("/", async (req, res) => {
         })
 })
 
-app.put("/", async (req, res) => {
+app.put("/", auth, async (req, res) => {
     let param = {
         id_meja: req.body.id_meja
     }
@@ -93,7 +97,7 @@ app.put("/", async (req, res) => {
         })
 })
 
-app.delete("/:id", async (req, res) => {
+app.delete("/:id", auth, async (req, res) => {
     let param = {
         id_meja: req.params.id
     }

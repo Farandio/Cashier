@@ -3,6 +3,7 @@ const app = express()
 const moment = require("moment")
 const transaksi = require("../models/index").transaksi
 const detail_transaksi = require("../models/index").detail_transaksi
+const md5 = require("md5")
 const jwt = require("jsonwebtoken")
 const SECRET_KEY = "INIPUNYAKASIR"
 const auth = require("../auth")
@@ -10,7 +11,7 @@ const auth = require("../auth")
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get("/detail", async (req, res) => {
+app.get("/detail", auth, async (req, res) => {
     detail_transaksi.findAll({
         include: ["transaksi", "menu"]
     })
@@ -26,7 +27,7 @@ app.get("/detail", async (req, res) => {
         })
 })
 
-app.get("/detail/:id", async (req, res) => {
+app.get("/detail/:id", auth, async (req, res) => {
     let param = {
         id_transaksi: req.params.id
     }
@@ -46,7 +47,7 @@ app.get("/detail/:id", async (req, res) => {
         })
 })
 
-app.get("/", async (req, res) => {
+app.get("/", auth, async (req, res) => {
     transaksi.findAll({
         include: ["user", "meja"]
     })
@@ -62,7 +63,7 @@ app.get("/", async (req, res) => {
         })
 })
 
-app.get("/:id", async (req, res) => {
+app.get("/:id", auth, async (req, res) => {
     let param = {
         id_transaksi: req.params.id
     }
@@ -131,7 +132,7 @@ app.put("/", auth, async (req, res) => {
         })
 })
 
-app.delete("/:id", async (req, res) => {
+app.delete("/:id", auth, async (req, res) => {
     let param = {
         id_transaksi: req.params.id
     }
