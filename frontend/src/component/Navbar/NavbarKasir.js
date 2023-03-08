@@ -45,7 +45,7 @@ export default class NavbarAdmin extends React.Component {
                 <div className="inline-flex">
                   <li className="">
                     <a
-                      href="/manajer/profileManajer"
+                      href="/kasir/profileKasir"
                       className="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:hover:bg-primary-600 dark:hover:text-white"
                     >
                       Profile

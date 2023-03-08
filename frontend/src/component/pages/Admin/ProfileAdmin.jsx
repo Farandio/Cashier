@@ -8,8 +8,9 @@ export default class ProfileAdmin extends Component {
         super()
         this.state = {
             token: "",
-            users: [],
-            id_user: 0
+            nama_user: "",
+            role: "",
+            username: ""
         }
         let user = JSON.parse(localStorage.getItem('user'))
         if (localStorage.getItem("token") && user.role == "admin") {
@@ -17,7 +18,6 @@ export default class ProfileAdmin extends Component {
         } else {
             window.location = "/"
         }
-        this.state.id_user = user.id_user
     }
 
     headerConfig = () => {
@@ -45,27 +45,37 @@ export default class ProfileAdmin extends Component {
             })
     }
 
-    componentDidMount(){
-        this.getUser()
+    componentDidMount() {
+      const userData = JSON.parse(localStorage.getItem('user'));
+  
+      if (userData) {
+        this.setState({
+          nama_user: userData.nama_user,
+          role: userData.role,
+          username: userData.username
+        });
+      }
     }
   render() {
     return (
-        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            {this.state.users.map((item) => (
-        <div className="flex flex-col items-center pb-10">
+      <div>
+        <NavbarAdmin />
+        <div className='flex justify-center items-center pt-48'>
+        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-3xl shadow dark:bg-text-color">
+        <div className="flex flex-col items-center py-56">
           <img
             className="w-24 h-24 mb-3 rounded-full shadow-lg"
-            src="/docs/images/people/profile-picture-3.jpg"
-            alt="Bonnie image"
+            src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt="Admin Profile"
             />
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            {item.nama_user}
+            {this.state.nama_user}
           </h5>
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            {item.role}
+            {this.state.role}
           </span>
           <span className="text-xs text-gray-500 dark:text-gray-400">
-            {item.username}
+            {this.state.username}
           </span>
           <div className="flex mt-4 space-x-3 md:mt-6">
             <a
@@ -82,9 +92,9 @@ export default class ProfileAdmin extends Component {
             </a>
           </div>
         </div>
-          ))}
           </div>
-      
+          </div>
+          </div>
     )
   }
 }

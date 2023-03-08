@@ -10,9 +10,11 @@ import ProfileAdmin from './component/pages/Admin/ProfileAdmin';
 
 import ListMenu from './component/pages/Kasir/ListMenu';
 import RiwayatKasir from './component/pages/Kasir/Riwayat';
+import ProfileKasir from './component/pages/Kasir/ProfileKasir';
 
 import HomeManajer from './component/pages/Manajer/HomeManajer';
 import TrackHistory from './component/pages/Manajer/TrackHistory';
+import ProfileManajer from './component/pages/Manajer/ProfileManajer';
 // import { PrivateRoute } from './component/IsLogged/PrivateRoute';
 
 function App() {
@@ -28,9 +30,11 @@ function App() {
 
         <Route path="/kasir/listMenu" element={<ListMenu/>} />
         <Route path="/kasir/riwayatKasir" element={<RiwayatKasir/>} />
+        <Route path="/kasir/profileKasir" element={<ProfileKasir/>} />
 
         <Route path="/manajer/homeManajer" element={<HomeManajer/>} />
         <Route path="/manajer/trackHistory" element={<TrackHistory/>} />
+        <Route path="/manajer/profileManajer" element={<ProfileManajer/>} />
     </Routes>
   )
 }
