@@ -3,7 +3,7 @@ const app = express()
 const user = require("../models/index").user
 const md5 = require("md5")
 const jwt = require("jsonwebtoken")
-const SECRET_KEY = "INIPUNYAKASIR"
+const SECRET_KEY = "AHEADSK"
 const auth = require("../auth")
 
 app.use(express.urlencoded({ extended: true }))

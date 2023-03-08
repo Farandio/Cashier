@@ -16,7 +16,8 @@ export default class Meja extends React.Component {
             judul: "",
             fillpassword: true
         }
-        if (localStorage.getItem("token")) {
+        let user = JSON.parse(localStorage.getItem('user'))
+        if (localStorage.getItem("token") && user.role == "admin") {
             this.state.token = localStorage.getItem("token")
         } else {
             window.location = "/"
@@ -321,7 +322,7 @@ export default class Meja extends React.Component {
                             </button>
                             <div className="px-6 py-6 lg:px-8">
                                 <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">{this.state.judul}</h3>
-                                <form className="space-y-6" onSubmit={(event) => this.saveUser(event)}>
+                                <form className="space-y-6" onSubmit={(event) => this.saveMeja(event)}>
                                     <div>
                                         <label for="nomor_meja" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Meja</label>
                                         <input type="text" name="nomor_meja" id="nomor_meja" value={this.state.nomor_meja} onChange={this.bind} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Masukkan nomor meja" required />

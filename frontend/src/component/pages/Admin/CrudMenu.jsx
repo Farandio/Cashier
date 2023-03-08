@@ -16,10 +16,24 @@ export default class Menu extends React.Component {
             gambar: null,
             harga: ''
         }
+        let user = JSON.parse(localStorage.getItem('user'))
+        if (localStorage.getItem("token") && user.role == "admin") {
+            this.state.token = localStorage.getItem("token")
+        } else {
+            window.location = "/"
+        }
     }
+
+    headerConfig = () => {
+        let header = {
+            headers: { Authorization: `Bearer ${this.state.token}` }
+        }
+        return header;
+    }
+
     getMenu = () => {
         let url = "http://localhost:4000/cashier/api/menu"
-        axios.get(url)
+        axios.get(url, this.headerConfig())
             .then(response => {
                 this.setState({ menu: response.data.data })
             })
@@ -71,13 +85,13 @@ export default class Menu extends React.Component {
         form.append("harga", this.state.harga)
         let url = "http://localhost:4000/cashier/api/menu"
         if (this.state.action === "insert") {
-            axios.post(url, form)
+            axios.post(url, form, this.headerConfig())
                 .then(response => {
                     window.alert(response.data.message)
                     this.getMenu()
                 })
         } else if (this.state.action === "update") {
-            axios.put(url, form)
+            axios.put(url, form, this.headerConfig())
                 .then(response => {
                     window.alert(response.data.message)
                     this.getMenu()
@@ -88,8 +102,8 @@ export default class Menu extends React.Component {
     }
     dropMenu = selectedItem => {
         if (window.confirm("Apakah anda yakin ingin menghapus data ini?")) {
-            let url = "http://localhost:4040/kasir/menu/" + selectedItem.id_menu
-            axios.delete(url)
+            let url = "http://localhost:4000/cashier/api/menu/" + selectedItem.id_menu
+            axios.delete(url, this.headerConfig())
                 .then(response => {
                     window.alert(response.data.message)
                     this.getMenu()

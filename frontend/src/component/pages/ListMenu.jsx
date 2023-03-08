@@ -5,271 +5,324 @@ import NavbarKasir from "../../Navbar/NavbarKasir";
 // import { response } from '../../../../../backend/router/menu';
 
 export default class ListMenu extends Component {
-    constructor() {
-        super()
-        this.state = {
-            menu: [],
-            action: "",
-            id_menu: 0,
-            nama_menu: '',
-            jenis: '',
-            deskripsi: '',
-            gambar: null,
-            harga: '',
-
-            menuReview: [],
-            id_menuReview: 0,
-            nama_menuReview: '',
-            jenisReview: '',
-            deskripsiReview: '',
-            gambarReview: null,
-            hargaReview: '',
-
-            transaksi: [[0, 0]],
-            qty: 0
-          }
-        
-        
-        if (localStorage.getItem("token")) {
-            this.state.token = localStorage.getItem("token")
-        } else {
-            window.location = "/"
-        }
+  constructor() {
+    super()
+    this.state = {
+        menu: [],
+        meja: [],
+        action: "",
+        token: "",
+        id_transaksi: 0,
+        tgl_transaksi: '',
+        id_user: 0,
+        id_meja: 0,
+        nama_pelanggan: '',
+        status: '',
+        jenis_pesanan: '',
+        cart: [],
+        id_menu: [],
+        qty: 0
     }
-
-
-    headerConfig = () => {
-        let header = {
-            headers: { Authorization: `Bearer ${this.state.token}` }
-        }
-        return header;
+    if (localStorage.getItem("token")) {
+        this.state.token = localStorage.getItem("token")
+    } else {
+        window.location = "/"
     }
-
-    reviewModal = (selectedItem) => {
-      $("#modal_review").show()
-      let url = "http://localhost:4000/cashier/api/menu/" + selectedItem.id_menu
-      axios.get(url)
-      .then(response => {
-        this.setState({ menuReview: response.data.data })
-      })
-      .catch(err => {
-        if (err.response) {
-          if (err.response.status) {
-              window.alert(err.response.data.message)
-              window.location = '/'
-          }
-      } else {
-          console.log(err);
-      }
-      })
+}
+headerConfig = () => {
+    let header = {
+        headers: { Authorization: `Bearer ${this.state.token}` }
     }
-
-    getMenu = () => {
-        let url = "http://localhost:4000/cashier/api/menu"
-        axios.get(url, this.headerConfig())
-            .then(response => {
-                this.setState({ menu: response.data.data })
-            })
-            .catch(error => {
-                if (error.response) {
-                    if (error.response.status) {
-                        window.alert(error.response.data.message)
-                        window.location = '/'
-                    }
-                } else {
-                    console.log(error);
+    return header;
+}
+getMenu = () => {
+    let url = "http://localhost:4000/cashier/api/menu/"
+    axios.get(url, this.headerConfig())
+        .then(response => {
+            this.setState({ menu: response.data.data })
+        })
+        .catch(error => {
+            if (error.response) {
+                if (error.response.status) {
+                    window.alert(error.response.data.message)
+                    window.location = '/'
                 }
+            } else {
+                console.log(error);
+            }
+        })
+}
+
+getTransaksi = () => {
+    let url = "http://localhost:4000/cashier/api/pemesanan"
+    axios.get(url, this.headerConfig())
+        .then(response => {
+            this.setState({ transaksi: response.data.data })
+        })
+        .catch(error => {
+            if (error.response) {
+                if (error.response.status) {
+                    window.alert(error.response.data.message)
+                    window.location = '/'
+                }
+            } else {
+                console.log(error);
+            }
+        })
+}
+
+getUser = () => {
+    let url = "http://localhost:4000/cashier/api/user"
+    axios.get(url, this.headerConfig())
+        .then(response => {
+            this.setState({ user: response.data.data })
+        })
+        .catch(error => {
+            if (error.response) {
+                if (error.response.status) {
+                    window.alert(error.response.data.message)
+                    window.location = '/'
+                }
+            } else {
+                console.log(error);
+            }
+        })
+}
+
+getMeja = () => {
+    let url = "http://localhost:4000/cashier/api/meja"
+    axios.get(url, this.headerConfig())
+        .then(response => {
+            this.setState({ meja: response.data.data })
+        })
+        .catch(error => {
+            if (error.response) {
+                if (error.response.status) {
+                    window.alert(error.response.data.message)
+                    window.location = '/'
+                }
+            } else {
+                console.log(error);
+            }
+        })
+}
+
+Add = () => {
+    $("#modal_transaksi").show()
+    let user = JSON.parse(localStorage.getItem('user'))
+    this.setState({
+        id_transaksi: 0,
+        tgl_transaksi: '',
+        id_meja: 0,
+        id_user: user.id_user,
+        nama_pelanggan: '',
+        status: 'belum_bayar',
+        jenis_pesanan: '',
+        action: "insert",
+    })
+}
+AddDetail = (value, index) => {
+    axios
+        .get("http://localhost:4000/cashier/api/menu/" + value.id_menu, this.headerConfig())
+        .then((res) => {
+            console.log(res.data.data)
+            console.log("id menu: " + this.state.menu[index].id_menu)
+            console.log("index: " + index)
+            console.log("panjang cart: " + this.state.cart.length)
+            console.log("qty index " + this.state.cart[index])
+            let i = this.state.cart.indexOf()
+            console.log(i)
+            if (this.state.cart.length === 0) {
+                const keranjang = {
+                    id_menu: value.id_menu,
+                    qty: 1
+                }
+                this.state.cart.push(keranjang)
+            } else if (this.state.cart.find(item => item.id_menu === value.id_menu)) {
+              this.state.cart.find(item => item.id_menu===value.id_menu).qty++
+            } else if (this.state.cart.find(item => item.id_menu !== value.id_menu)) {
+                const keranjang = {
+                    id_menu: value.id_menu,
+                    qty: 1
+                }
+                this.state.cart.push(keranjang)
+            }
+            this.qtyShow(value, index);
+            console.log(this.state.cart)
+            this.setState({
+              cart: this.state.cart
             })
-    }
-
-    Add = () => {
-        $("#modal_menu").show()
-        this.setState({
-            id_menu: 0,
-            nama_menu: '',
-            jenis: '',
-            deskripsi: '',
-            gambar: null,
-            harga: '',
-            action: "insert"
         })
+        .catch(error => console.log(error))
+
+};
+
+  qtyShow = (value) => {
+    return this.state.cart.find(item => item.id_menu === value.id_menu ? item.qty : 0 ); 
+  };
+
+handleMinus = (value, index) => {
+  axios.get("http://localhost:4000/cashier/api/menu/" + value.id_menu, this.headerConfig())
+.then((res) => {
+  console.log(res.data.data)
+  console.log("id menu: " + this.state.menu[index].id_menu)
+  console.log("index: " + index)
+  console.log("panjang cart: " + this.state.cart.length)
+  console.log("qty index " + this.state.cart[index])
+  let i = this.state.cart.indexOf()
+  console.log(i)
+    if (this.state.cart.length === 0) {
+      // $("#modal_alert").show();
+      console.log("we rong nambah transaksi")
+    } else if (this.state.cart.find(item => item.id_menu === value.id_menu)) {
+      if (this.state.cart.find(item => item.qty > 0)) {
+        this.state.cart.find(item => item.id_menu===value.id_menu).qty--
+      }else{
+        // $("#modal_alert").show();
+        console.log("we rong nambah transaksi")
+      }
+    } else if (this.state.cart.find(item => item.id_menu !== value.id_menu)) {
+      // $("#modal_alert").show();
+      console.log("we rong nambah transaksi")
     }
+    this.state.cart.find(item => item.qty == 0) ? this.state.cart.splice(i):console.log("lanjut")
+    this.qtyShow(value, index);
+    console.log(this.state.cart)
+    this.setState({
+      cart: this.state.cart
+    })
+})
+.catch(error => console.log(error))
 
-    Edit = selectedItem => {
-        $("#modal_menu").show()
-        this.setState({
-            id_menu: selectedItem.id_menu,
-            nama_menu: selectedItem.nama_menu,
-            jenis: selectedItem.jenis,
-            deskripsi: selectedItem.deskripsi,
-            gambar: null,
-            harga: selectedItem.harga,
-            action: "update"
-        })
+};
+
+getItemQuantity(itemId) {
+  const item = this.state.cart.find((item) => item.id_menu === itemId);
+  return item ? item.qty : 0;
+}
+
+Edit = selectedItem => {
+    $("#modal_transaksi").show()
+    this.setState({
+        action: "update",
+        id_transaksi: selectedItem.id_transaksi,
+        status: selectedItem.status,
+    })
+}
+saveTransaksi = (event) => {
+    event.preventDefault()
+    $("#modal_transaksi").show()
+    let sendData = {
+        id_transaksi: this.state.id_transaksi,
+        tgl_transaksi: this.state.tgl_transaksi,
+        id_user: this.state.id_user,
+        id_meja: this.state.id_meja,
+        nama_pelanggan: this.state.nama_pelanggan,
+        status: this.state.status,
+        jenis_pesanan: this.state.jenis_pesanan,
+        detail_transaksi: this.state.cart
     }
-
-    handlePlus = (selectedItem) => {
-        let qty = 0;
-        let id = selectedItem.id_menu;
-        // for(let i = 0; i <= this.state.transaksi.length; i++){
-        //     if(this.state.transaksi[i][0]){
-        //         let qty2 = this.state.transaksi[i][1];
-        //         this.setState({
-        //             transaksi: [[i, qty2++]]
-        //         })
-        //     }else{
-        //         this.setState({
-        //             transaksi: [[id, qty++]]
-        //         })
-        //     }
-        // }
-
-        // this.state.transaksi.map((arr, i) => arr.map((item, j) => {
-        //     if(item[j].hasOwnProperty('available')){
-        //         return this.state.transaksi[i][1]++;
-        //     }else{
-        //         this.setState({
-        //             transaksi: [i][id, qty++, 'available']
-        //         })
-        //         // this.state.transaksi[0][id, qty++, 'available'];
-        //     }
-        // }))
-
-        // this.setState(state => {
-        //     const row = state.transaksi.map((row, i) => {
-        //         let tile;
-        //         if (i) {
-        //             tile = row.map((cell, j) => {
-        //                 if (j[1] > 0 && j[1] < 2) {
-        //                     return cell + 1;
-        //                 } else { 
-        //                     this.setState({
-        //                         transaksi: [i++][id, qty++]
-        //                     })
-        //                  }
-        //             }); 
-                    
-        //             return tile;
-
-        //         } else { return row; }
-        //     });
-      
-        //     return {
-        //         row,
-        //     };
-        // });
-
-        // this.setState({
-        //     transaksi: [0][id, qty++]
-        // })
-        
-        alert("test");
-        console.log(this.state.transaksi)
+    let url = "http://localhost:4000/cashier/api/pemesanan"
+    if (this.state.action === "insert") {
+        axios.post(url, sendData, this.headerConfig())
+            .then(response => {
+                window.alert(response.data.message)
+                this.setState({ transaksi: response.data.data })
+            })
+    } else if (this.state.action === "update") {
+        axios.put(url, sendData, this.headerConfig())
+            .then(response => {
+                window.alert(response.data.message)
+                this.getTransaksi()
+            })
+            .catch(error => console.log(error))
     }
-    
-    saveMenu = (event) => {
-        event.preventDefault()
-        $("#modal_menu").show()
-        let form = new FormData()
-        form.append("id_menu", this.state.id_menu)
-        form.append("nama_menu", this.state.nama_menu)
-        form.append("jenis", this.state.jenis)
-        form.append("deskripsi", this.state.deskripsi)
-        form.append("gambar", this.state.gambar)
-        form.append("harga", this.state.harga)
-        let url = "http://localhost:4000/cashier/api/menu"
-        if (this.state.action === "insert") {
-            axios.post(url, form, this.headerConfig())
-                .then(response => {
-                    window.alert(response.data.message)
-                    this.getMenu()
-                })
-        } else if (this.state.action === "update") {
-            axios.put(url, form, this.headerConfig())
-                .then(response => {
-                    window.alert(response.data.message)
-                    this.getMenu()
-                })
-                .catch(error => console.log(error))
-        }
-        $("#modal_menu").hide()
+    $("#modal_transaksi").hide()
+}
+dropTransaksi = selectedItem => {
+    if (window.confirm("Apakah anda yakin ingin menghapus data ini?")) {
+        let url = "http://localhost:4000/cashier/api/pemesanan/" + selectedItem.id_transaksi
+        axios.delete(url, this.headerConfig())
+            .then(response => {
+                window.alert(response.data.message)
+                this.getUser()
+            })
+            .catch(error => console.log(error))
     }
-    dropMenu = selectedItem => {
-        if (window.confirm("Apakah anda yakin ingin menghapus data ini?")) {
-            let url = "http://localhost:4040/kasir/menu/" + selectedItem.id_menu
-            axios.delete(url, this.headerConfig())
-                .then(response => {
-                    window.alert(response.data.message)
-                    this.getMenu()
-                })
-                .catch(error => console.log(error))
-        }
-    }
+}
+bind = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
+}
+componentDidMount() {
+    this.getMenu()
+    this.getMeja()
+}
+close = () => {
+    $("#modal_transaksi").hide()
+}
 
-    handleFile = (event) => {
-        this.setState({
-            gambar: event.target.files[0]
-        })
-    }
+handleQuantityChange(id, newQty) {
+  const cart = this.state.cart.map((item) =>
+    item.id_menu === id ? { ...item, qty: newQty } : item
+  );
+  this.setState({ cart });
+}
 
-    bind = (event) => {
-        this.setState({ [event.target.name]: event.target.value })
-    }
-    componentDidMount() {
-        this.getMenu()
-    }
-    close = () => {
-        $("#modal_menu").hide()
-    }
-    convertToRupiah(number) {
+getItemQuantity(id) {
+  const item = this.state.cart.find((item) => item.id_menu === id);
+  return item ? item.qty : 0;
+}
 
-        if (number) {
 
-            var rupiah = "";
+convertToRupiah(number) {
 
-            var numberrev = number
+    if (number) {
 
-                .toString()
+        var rupiah = "";
 
-                .split("")
+        var numberrev = number
+
+            .toString()
+
+            .split("")
+
+            .reverse()
+
+            .join("");
+
+        for (var i = 0; i < numberrev.length; i++)
+
+            if (i % 3 === 0) rupiah += numberrev.substr(i, 3) + ".";
+
+        return (
+
+            "Rp. " +
+
+            rupiah
+
+                .split("", rupiah.length - 1)
 
                 .reverse()
 
-                .join("");
+                .join("")
 
-            for (var i = 0; i < numberrev.length; i++)
+        );
 
-                if (i % 3 === 0) rupiah += numberrev.substr(i, 3) + ".";
+    } else {
 
-            return (
-
-                "Rp. " +
-
-                rupiah
-
-                    .split("", rupiah.length - 1)
-
-                    .reverse()
-
-                    .join("")
-
-            );
-
-        } else {
-
-            return number;
-
-        }
-
-        
+        return number;
 
     }
+     
+}
 
   render() {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:bg-secondary-bg bg-fixed">
             <NavbarKasir />
-            <br /><br /><br /><br /><br /><br /><br /><br />
+            <div className="relative pl-5 pt-36">
+              <button onClick={() => this.Add()} className="outline outline-1 dark:outline-white inline-flex items-center border hover:bg-gray-100 focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-primary-600 dark:text-white dark:border-white dark:hover:bg-primary-700 dark:hover:border-white">Pesan</button>
+            </div><br />
         <table className="shadow-2xl place-items-center w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-primary-600 dark:text-white">
             <tr>
@@ -294,7 +347,10 @@ export default class ListMenu extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.menu.map(item => (
+          
+            {this.state.menu.map((item, index) => (
+              // const cart = this.state.cart.find(cart => cart.id_menu === item.id_menu);
+              // const qty = cart ? cart.qty : 0;
             <tr className="bg-tranparent bg-text-color bg-opacity-50 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
               <td className="w-32 p-4">
                 <img className="rounded-t-lg outline outline-2 dark:outline-white" src={`http://localhost:4000/img/${item.gambar}`} alt="gambar" />
@@ -308,7 +364,7 @@ export default class ListMenu extends Component {
               <td className="px-6 py-4">
                 <div className="flex items-center space-x-3">
                   <button
-                    onClick={() => this.handleMinus(item)}
+                    onClick={() => this.handleMinus(item, index)}
                     className="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-primary-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     type="button"
                   >
@@ -327,22 +383,21 @@ export default class ListMenu extends Component {
                       />
                     </svg>
                   </button>
-                  {/* <button onClick={() => this.handlePlus(item)} className="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-primary-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                    type="button">
-
-                  </button> */}
-                  <div>
-                    {/* <h6 className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-text-color dark:focus:ring-blue-500 dark:focus:border-blue-500"></h6> */}
+                    
+                    <div>
                     <input
                       type="number"
                       id="first_product"
                       className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-text-color dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      value={this.getItemQuantity(item.id_menu)}
                       placeholder=""
                       required=""
+                      readOnly
                     />
                   </div>
+                    
                   <button
-                    onClick={() => this.handlePlus(item)}
+                    onClick={() => this.AddDetail(item, index)}
                     className="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-primary-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     type="button"
                   >
@@ -376,7 +431,8 @@ export default class ListMenu extends Component {
                 </a>
               </td>
             </tr>
-            ))}
+          ))}
+            
           </tbody>
         </table>
       </div>

@@ -18,7 +18,8 @@ export default class User extends React.Component {
             judul: "",
             fillpassword: true
         }
-        if (localStorage.getItem("token")) {
+        let user = JSON.parse(localStorage.getItem('user'))
+        if (localStorage.getItem("token") && user.role == "admin") {
             this.state.token = localStorage.getItem("token")
         } else {
             window.location = "/"
@@ -299,7 +300,7 @@ export default class User extends React.Component {
       </thead>
       <tbody>
         {this.state.user.map((item) => (
-        <tr className="bg-white dark:bg-text-color hover:bg-gray-50 dark:hover:bg-gray-600">
+        <tr className="dark:bg-white hover:bg-gray-50 dark:hover:bg-gray-600">
           <td className="w-4 p-4">
             <div className="flex items-center">
               <input

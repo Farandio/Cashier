@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavbarAdmin from '../../Navbar/NavbarAdmin'
+import NavbarManajer from '../../Navbar/NavbarManajer'
 
 export default class HomeAdmin extends Component {
   constructor() {
@@ -8,7 +8,7 @@ export default class HomeAdmin extends Component {
       token: ""
   }
     let user = JSON.parse(localStorage.getItem('user'))
-    if (localStorage.getItem("token") && user.role == "admin") {
+    if (localStorage.getItem("token") && user.role == "manajer") {
         this.state.token = localStorage.getItem("token")
     } else {
         window.location = "/"
@@ -16,11 +16,13 @@ export default class HomeAdmin extends Component {
   }
   render() {
     return (
-      <div className='flex h-screen w-full bg-main-bg dark:bg-home-bg bg-cover object-cover'>
+      <div className='flex h-screen w-full bg-main-bg dark:bg-secondary-bg bg-cover object-cover'>
         <div className="w-full h-screen">
-                <NavbarAdmin />
+          <NavbarManajer />
+
+          {/* <Chart /> */}
         </div>
-      </div>
+    </div>
     )
   }
 }

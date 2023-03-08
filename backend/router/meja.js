@@ -1,9 +1,6 @@
 const express = require("express")
 const app = express()
 const meja = require("../models/index").meja
-const md5 = require("md5")
-const jwt = require("jsonwebtoken")
-const SECRET_KEY = "INIPUNYAKASIR"
 const auth = require("../auth")
 
 app.use(express.urlencoded({ extended: true }))

@@ -32,10 +32,10 @@ export default class NavbarAdmin extends React.Component {
                   </li>
                   <li className="">
                     <a
-                      href="/kasir/onGoing"
+                      href="/kasir/riwayatKasir"
                       className="block text-white focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-1 dark:hover:bg-primary-600 dark:hover:text-white"
                     >
-                      On Going
+                      Riwayat
                     </a>
                   </li>
                 </div>

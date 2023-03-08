@@ -9,15 +9,7 @@ const meja = require("../models/index").meja
 const user = require("../models/index").user
 const auth = require("../auth")
 const { sequelize } = require("../models/index")
-// const conn = require("../conn")
-
-
-const conn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "cashier",
-});
+const conn = require("../conn")
 
 const { Op } = require('sequelize')
 
@@ -180,6 +172,7 @@ app.get("/riwayat/:status/:id", auth, async (req, res) => {
             })
         })
 })
+
 app.get("/qtybymenu", auth, async (req, res) => {
     conn.query(
         "SELECT menu.id_menu, menu.nama_menu, SUM(detail_transaksi.qty) AS total_qty FROM menu JOIN detail_transaksi ON menu.id_menu = detail_transaksi.id_menu GROUP BY menu.id_menu",

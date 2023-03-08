@@ -4,9 +4,6 @@ const menu = require("../models/index").menu
 const multer = require("multer")
 const path = require("path")
 const fs = require("fs")
-const md5 = require("md5")
-const jwt = require("jsonwebtoken")
-const SECRET_KEY = "INIPUNYAKASIR"
 const auth = require("../auth")
 
 app.use(express.urlencoded({ extended: true }))
@@ -24,6 +21,23 @@ let upload = multer({ storage: storage })
 
 app.get("/", auth, async (req, res) => {
     menu.findAll()
+        .then(result => {
+            res.json({
+                data: result
+            })
+        })
+        .catch(error => {
+            res.json({
+                message: error.message
+            })
+        })
+})
+
+app.get("/jenis/:jenis", auth, async (req, res) => {
+    let param = {
+        jenis: req.params.jenis
+    }
+    menu.findAll({ where: param })
         .then(result => {
             res.json({
                 data: result
