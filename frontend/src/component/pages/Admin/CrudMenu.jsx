@@ -192,12 +192,9 @@ export default class Menu extends React.Component {
                                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Jenis: {item.jenis}</p>
                                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Deskripsi: {item.deskripsi}</p>
                                         <p className="mb-6 font-normal text-gray-700 dark:text-gray-400">Harga: {this.convertToRupiah(item.harga)}</p>
-                                        <br />
                                         <div className="text-start flex">
-                                            <button className="block px-5 py-1 font-medium dark:bg-text-color dark:hover:bg-primary-600 dark:hover:text-white dark:text-primary-600 outline outline-2 outline-primary-600 mr-4 rounded-md" onClick={() => this.Edit(item)}>Edit</button>
-                                            <button className="block px-5 py-1 font-medium dark:bg-text-color dark:hover:bg-red dark:text-red dark:hover:text-white outline outline-2 outline-red mr-4 rounded-md" onClick={() => this.dropMenu(item)}>Delete</button>
-                                            {/* <a href="#" className="font-medium dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 dark:text-white mr-4 rounded-md" onClick={() => this.Edit(item)}>Edit</a> */}
-                                            {/* <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline" onClick={() => this.dropMenu(item)}>Hapus</a> */}
+                                            <button className=" px-5 py-1 font-medium dark:bg-text-color dark:hover:bg-primary-600 dark:hover:text-white dark:text-primary-600 outline outline-2 outline-primary-600 mr-4 rounded-md" onClick={() => this.Edit(item)}>Edit</button>
+                                            <button className=" px-5 py-1 font-medium dark:bg-text-color dark:hover:bg-red dark:text-red dark:hover:text-white outline outline-2 outline-red mr-4 rounded-md" onClick={() => this.dropMenu(item)}>Delete</button>
                                         </div>
                                     </div>
                                 </div>

@@ -182,7 +182,7 @@ app.get("/riwayat/:status/:id", auth, async (req, res) => {
 })
 app.get("/qtybymenu", auth, async (req, res) => {
     conn.query(
-        "SELECT menu.id_menu, menu.nama_menu, SUM(detail_transaksi.qty) AS total_qty FROM menu JOIN detail_transaksi ON menu.id_menu = detail_transaksi.id_menu GROUP BY menu.id_menu",
+        "SELECT menu.id_menu, menu.nama_menu, SUM(detail_transaksi.qty) AS total_qty FROM menu JOIN detail_transaksi ON menu.id_menu = detail_transaksi.id_menu GROUP BY menu.id_menu LIMIT 5",
         (err, results, fields) => {
             if (!err) {
                 res.send(results);

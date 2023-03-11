@@ -11,6 +11,7 @@ export default class ProfileAdmin extends Component {
             nama_user: "",
             role: "",
             username: ""
+
         }
         let user = JSON.parse(localStorage.getItem('user'))
         if (localStorage.getItem("token") && user.role == "admin") {
@@ -58,7 +59,7 @@ export default class ProfileAdmin extends Component {
     }
   render() {
     return (
-      <div>
+      <div className='h-screen w-full dark:bg-secondary-bg bg-cover object-cover'>
         <NavbarAdmin />
         <div className='flex justify-center items-center pt-48'>
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-3xl shadow dark:bg-text-color">
@@ -77,12 +78,12 @@ export default class ProfileAdmin extends Component {
           <span className="text-xs text-gray-500 dark:text-gray-400">
             {this.state.username}
           </span>
-          <div className="flex mt-4 space-x-3 md:mt-6">
+          {/* <div className="flex mt-4 space-x-3 md:mt-6">
             <a
               href="#"
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Add friend
+              {this.state.updatedAt}
             </a>
             <a
               href="#"
@@ -90,7 +91,7 @@ export default class ProfileAdmin extends Component {
             >
               Message
             </a>
-          </div>
+          </div> */}
         </div>
           </div>
           </div>

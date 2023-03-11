@@ -30,7 +30,7 @@ export default class Meja extends React.Component {
         return header;
     }
     getMeja = () => {
-        $("#dropdown").hide()
+        $("#dropdownAction").hide()
         let url = "http://localhost:4000/cashier/api/meja"
         axios.get(url, this.headerConfig())
             .then(response => {
@@ -67,6 +67,46 @@ export default class Meja extends React.Component {
             })
     }
 
+    // getMejaStatus = () => {
+    //     let url = "http://localhost:4000/cashier/api/meja/status/" + this.state.status_meja
+    //     if(this.state.status_meja == "tersedia"){
+    //         $("#dropdownAction").hide()
+    //         axios.get(url, this.headerConfig())
+    //         .then(response => {
+    //             this.setState({ meja: response.data.data })
+    //         })
+    //         .catch(error => {
+    //             if (error.response) {
+    //                 if (error.response.status) {
+    //                     window.alert(error.response.data.message)
+    //                     window.location = '/'
+    //                 }
+    //             } else {
+    //                 console.log(error);
+    //             }
+    //         })
+    //     }else if(this.state.status_meja == "tidak_tersedia"){
+    //         $("#dropdownAction").hide()
+    //         axios.get(url, this.headerConfig())
+    //         .then(response => {
+    //             this.setState({ meja: response.data.data })
+    //         })
+    //         .catch(error => {
+    //             if (error.response) {
+    //                 if (error.response.status) {
+    //                     window.alert(error.response.data.message)
+    //                     window.location = '/'
+    //                 }
+    //             } else {
+    //                 console.log(error);
+    //             }
+    //         })
+    //     }else{
+    //         $("#dropdownAction").hide()
+    //         this.getMeja();
+    //     }
+    // }
+
     Add = () => {
         $("#modal_meja").show()
         this.setState({
@@ -88,6 +128,11 @@ export default class Meja extends React.Component {
           action: "update"
         })
     }
+
+    showAction = () => {
+        $("#dropdownAction").show()
+    }
+
     saveMeja = (event) => {
         event.preventDefault()
         $("#modal_meja").show()
@@ -153,16 +198,31 @@ export default class Meja extends React.Component {
                 <NavbarAdmin />
                 <div className="relative overflow-x-auto sm:rounded-lg pt-28 pl-14 pr-14">
     <div className="flex items-center justify-between pb-4 pt-4">
-      <select className="outline outline-1 dark:outline-white inline-flex items-center border hover:bg-gray-100 focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-primary-600 dark:text-white dark:border-white dark:hover:bg-primary-700 dark:hover:border-white">
-        <option onClick={() => this.getMeja()}>Show All</option>
-        <option onClick={() => this.getUserStatus("tersedia")}>Tersedia</option>
-        <option onClick={() => this.getUserStatus("tidak_tersedia")}>Terpakai</option>
-      </select>
+        <div>
+            <button onClick={() => this.showAction()} id="dropdownActionButton" data-dropdown-toggle="dropdownAction" className="inline-flex items-center text-gray-500 bg-white border-2 border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-primary-600 dark:text-white dark:border-white dark:hover:bg-primary-700 dark:hover:border-white dark:focus:ring-gray-700" type="button">
+                <span className="sr-only">Action button</span>
+                Action
+                <svg className="w-3 h-3 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div id="dropdownAction" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-text-color dark:divide-white">
+                <ul className="py-1 text-sm text-gray-700 dark:text-white" aria-labelledby="dropdownActionButton">
+                    <li>
+                        <a onClick={() => this.getMeja()} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show All</a>
+                    </li>
+                    <li>
+                        <a onClick={() => this.getMejaStatus("tersedia")} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersedia</a>
+                    </li>
+                    <li>
+                        <a onClick={() => this.getMejaStatus("tidak_tersedia")} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Terpakai</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
       <div className="relative">
         <button onClick={() => this.Add()} className="outline outline-1 dark:outline-white inline-flex items-center border hover:bg-gray-100 focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-primary-600 dark:text-white dark:border-white dark:hover:bg-primary-700 dark:hover:border-white">Tambah Meja</button>
       </div>
     </div>
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 outline outline-2 dark:outline-white">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-primary-600 dark:text-white">
         <tr>
           <th scope="col" className="px-6 py-3">
@@ -181,7 +241,7 @@ export default class Meja extends React.Component {
       </thead>
       <tbody>
         {this.state.meja.map((item) => (
-        <tr className="bg-white dark:bg-text-color hover:bg-gray-50 dark:hover:bg-gray-600 border-2 dark:border-b-white">
+        <tr className="bg-white dark:bg-text-color hover:bg-gray-50 dark:hover:bg-gray-600 border-b dark:border-white">
           
           <td className="px-6 py-4">{item.id_meja}</td>
           <td className="px-6 py-4">{item.nomor_meja}</td>

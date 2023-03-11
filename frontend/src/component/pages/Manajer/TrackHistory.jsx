@@ -198,15 +198,15 @@ export default class User extends React.Component {
 </form>
 
             </div>
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 outline outline-2 dark:outline-white">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-primary-600 dark:text-white">
                 <tr>
                   <th scope="col" class="px-6 py-3">
                     Nama Pelanggan
                   </th>
-                  <th scope="col" class="px-6 py-3 ">
+                  {/* <th scope="col" class="px-6 py-3 ">
                     Nomor Meja
-                  </th>
+                  </th> */}
                   <th scope="col" class="px-6 py-3 ">
                     Petugas
                   </th>
@@ -223,13 +223,13 @@ export default class User extends React.Component {
               </thead>
               <tbody>
                 {this.state.transaksi.map(item => (
-                  <tr className="bg-white dark:bg-text-color bg-opacity-70 hover:bg-gray-50 dark:hover:bg-gray-600 border-2 dark:border-b-white" onClick={() => this.getDetail(item)} key={item.id_transaksi}>
+                  <tr className="bg-white dark:bg-text-color bg-opacity-70 hover:bg-gray-50 dark:hover:bg-gray-600 border-b dark:border-white" onClick={() => this.getDetail(item)} key={item.id_transaksi}>
                     <td class="px-6 py-4">
                       {item.nama_pelanggan}
                     </td>
-                    <td class="px-6 py-4">
+                    {/* <td class="px-6 py-4">
                       {item.meja.nomor_meja}
-                    </td>
+                    </td> */}
                     <td class="px-6 py-4">
                       {item.user.nama_user}
                     </td>

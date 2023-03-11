@@ -11,6 +11,8 @@ export default class Manajer extends React.Component {
       token: '',
       nama_user: "",
       data: [],
+      data2: [],
+      data3: [],
       transaksi: [],
       detail_transaksi: [],
       options: {
@@ -102,8 +104,7 @@ export default class Manajer extends React.Component {
     $("#modal_detail").hide()
   }
 
-  componentDidMount() {
-    this.getTransaksi()
+  getAllChart = () => {
     axios
       .get("http://localhost:4000/cashier/api/transaksi/qtybymenu", this.headerConfig())
       .then((response) => {
@@ -136,6 +137,11 @@ export default class Manajer extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  componentDidMount() {
+    this.getTransaksi()
+    this.getAllChart()
   }
 
   bind = (event) => {

@@ -23,6 +23,7 @@ export default class ListMenu extends Component {
         jenis_pesanan: '',
         cart: [],
         total: [],
+        totalBayar: 0
     }
     let user = JSON.parse(localStorage.getItem('user'))
     if (localStorage.getItem("token") && user.role == "kasir") {
@@ -116,8 +117,12 @@ handlePlus = (value) => {
                 }
                 this.state.cart.push(keranjang)
                 this.state.menus.push(res.data.data)
+                let harga1 = this.state.menus.find(item => item.id_menu === value.id_menu).harga
+                this.setState({ totalBayar : harga1 })
             } else if (this.state.cart.find(item => item.id_menu === value.id_menu)) {
                 this.state.cart.find(item => item.id_menu === value.id_menu).qty++
+                let harga2 = this.state.menus.find(item => item.id_menu === value.id_menu).harga
+                this.setState({ totalBayar: this.state.totalBayar + harga2 })
             } else if (this.state.cart.find(item => item.id_menu !== value.id_menu)) {
                 const keranjang = {
                     id_menu: value.id_menu,
@@ -125,13 +130,9 @@ handlePlus = (value) => {
                 }
                 this.state.cart.push(keranjang)
                 this.state.menus.push(res.data.data)
+                let harga = this.state.menus.find(item => item.id_menu === value.id_menu).harga
+                this.setState({ totalBayar: this.state.totalBayar + harga })
             }
-            // const menuId = value.id_menu; // id menu yang dicari
-            // const order = this.state.cart.find(order => order.id_menu === menuId);// mencari objek dengan id menu yang dicari
-            // const qty = order.qty;
-            // this.setState({
-            //     qty: qty
-            // })
             this.setState({
                 cart: this.state.cart,
                 menus: this.state.menus
@@ -151,6 +152,8 @@ handleMinus = (value) => {
             } else if (this.state.cart.find(item => item.id_menu === value.id_menu)) {
                 if (this.state.cart.find(item => item.qty > 0)) {
                     this.state.cart.find(item => item.id_menu === value.id_menu).qty--
+                    let harga = this.state.menus.find(item => item.id_menu === value.id_menu).harga
+                    this.setState({ totalBayar: this.state.totalBayar - harga })
                 } else {
                     window.alert("Belum ada yang dipesan")
                 }
@@ -201,6 +204,16 @@ saveTransaksi = (event) => {
         jenis_pesanan: this.state.jenis_pesanan,
         detail_transaksi: this.state.cart
     }
+    let sendData2 = {
+        id_transaksi: this.state.id_transaksi,
+        tgl_transaksi: this.state.tgl_transaksi,
+        id_user: this.state.id_user,
+        id_meja: null,
+        nama_pelanggan: this.state.nama_pelanggan,
+        status: this.state.status,
+        jenis_pesanan: this.state.jenis_pesanan,
+        detail_transaksi: this.state.cart
+    }
     let data = {
         id_meja: this.state.id_meja,
         status_meja: "tidak_tersedia"
@@ -217,7 +230,7 @@ saveTransaksi = (event) => {
             })
             .catch(error => console.log(error))
     } else if (this.state.jenis_pesanan === "take_away") {
-        axios.post(url, sendData, this.headerConfig())
+        axios.post(url, sendData2, this.headerConfig())
             .then(response => {
                 window.alert(response.data.message)
                 window.location = '/kasir/riwayatKasir'
@@ -238,6 +251,15 @@ dropTransaksi = selectedItem => {
             .catch(error => console.log(error))
     }
 }
+
+inputMeja = () => {
+  if(this.state.jenis_pesanan == "dine_in"){
+    $("#input_meja").show()
+  } else {
+    $("#input_meja").hide()
+  }
+}
+
 bind = (event) => {
     this.setState({ [event.target.name]: event.target.value })
 }
@@ -289,6 +311,8 @@ convertToRupiah(number) {
         return number;
 
     }
+    
+    
 
 }
 
@@ -410,7 +434,7 @@ convertToRupiah(number) {
           </tbody>
         </table>
         
-        <table className="shadow-2xl place-items-center w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table className="mt-9 shadow-2xl place-items-center w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-primary-600 dark:text-white">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -530,12 +554,7 @@ convertToRupiah(number) {
                             <div class="px-6 py-6 lg:px-8">
                                 <h3 class="text-xl font-medium text-gray-900 dark:text-white">Pemesanan</h3>
                                 <div class="space-y-6">
-                                    {/* {this.state.menu.map((item,index) => (
-                                        <div className="px-6 py-4" key={index}>
-                                            Total Bayar: {this.convertToRupiah(this.getTotalBayar(item.id_menu))}
-                                        </div>
-                                    ))} */}
-                                    <table class="w-full text-sm text-left dark:text-white">
+                                    <table class="rounded-lg w-full text-sm text-left dark:text-white">
                                         <thead class="text-xs uppercase dark:bg-primary-700 dark:text-white">
                                             <tr>
                                                 <th scope="col" class="px-6 py-3">
@@ -571,6 +590,9 @@ convertToRupiah(number) {
                                             ))}
                                         </tbody>
                                     </table>
+                                    <div className="bg-primary-700 rounded-lg p-2 border-2">
+                                        <p className="dark:text-white">Total Bayar: {this.convertToRupiah(this.state.totalBayar)}</p>
+                                    </div>
                                 </div>
                                 <form class="space-y-6 mt-6" onSubmit={(event) => this.saveTransaksi(event)}>
                                     <div>
@@ -579,16 +601,16 @@ convertToRupiah(number) {
                                     </div>
                                     <div>
                                         <label for="jenis_pesanan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Pesanan</label>
-                                        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Jenis Pesanan" name="jenis_pesanan" value={this.state.jenis_pesanan} onChange={this.bind} required>
+                                        <select onClick={() => this.inputMeja()} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Jenis Pesanan" name="jenis_pesanan" value={this.state.jenis_pesanan} onChange={this.bind} required>
                                             <option value=''>Pilih Jenis Pesanan</option>
                                             <option value="dine_in">Dine In</option>
                                             <option value="take_away">Take Away</option>
                                         </select>
                                     </div>
 
-                                    <div>
+                                    <div className='hidden modal' aria-hidden="true" id='input_meja'>
                                         <label for="jenis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meja</label>
-                                        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Jenis Pesanan" name="id_meja" value={this.state.id_meja} onChange={this.bind} required>
+                                        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Jenis Pesanan" name="id_meja" value={this.state.id_meja} onChange={this.bind}>
                                             <option value="">Pilih Meja</option>
                                             {this.state.meja.map(item => (
                                                 <option value={item.id_meja}>{item.nomor_meja}: {item.status_meja}</option>
