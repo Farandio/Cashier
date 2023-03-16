@@ -320,7 +320,8 @@ convertToRupiah(number) {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:bg-secondary-bg bg-fixed">
             <NavbarKasir />
-            <div className="relative pl-5 pt-36">
+            <h2 className="mt-36 dark:text-white text-lg font-serif ml-3 py-3 rounded-full dark:bg-text-color mb-5 font-bold text-center">MENU</h2>
+            <div className="relative pl-5">
               <button onClick={() => this.Add()} className="outline outline-1 dark:outline-white inline-flex items-center border hover:bg-gray-100 focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-primary-600 dark:text-white dark:border-white dark:hover:bg-primary-700 dark:hover:border-white">Pesan</button>
             </div><br />
         <table className="shadow-2xl place-items-center w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -597,11 +598,11 @@ convertToRupiah(number) {
                                 <form class="space-y-6 mt-6" onSubmit={(event) => this.saveTransaksi(event)}>
                                     <div>
                                         <label for="nama_pelanggan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Pelanggan</label>
-                                        <input type="text" name="nama_pelanggan" id="nama_pelanggan" value={this.state.nama_pelanggan} onChange={this.bind} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Masukkan nama pelanggan" required />
+                                        <input type="text" name="nama_pelanggan" id="nama_pelanggan" value={this.state.nama_pelanggan} onChange={this.bind} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-text-color" placeholder="Masukkan nama pelanggan" required />
                                     </div>
                                     <div>
                                         <label for="jenis_pesanan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Pesanan</label>
-                                        <select onClick={() => this.inputMeja()} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Jenis Pesanan" name="jenis_pesanan" value={this.state.jenis_pesanan} onChange={this.bind} required>
+                                        <select onClick={() => this.inputMeja()} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-text-color" placeholder="Jenis Pesanan" name="jenis_pesanan" value={this.state.jenis_pesanan} onChange={this.bind} required>
                                             <option value=''>Pilih Jenis Pesanan</option>
                                             <option value="dine_in">Dine In</option>
                                             <option value="take_away">Take Away</option>
@@ -610,7 +611,7 @@ convertToRupiah(number) {
 
                                     <div className='hidden modal' aria-hidden="true" id='input_meja'>
                                         <label for="jenis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meja</label>
-                                        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Jenis Pesanan" name="id_meja" value={this.state.id_meja} onChange={this.bind}>
+                                        <select className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-text-color" placeholder="Jenis Pesanan" name="id_meja" value={this.state.id_meja} onChange={this.bind}>
                                             <option value="">Pilih Meja</option>
                                             {this.state.meja.map(item => (
                                                 <option value={item.id_meja}>{item.nomor_meja}: {item.status_meja}</option>

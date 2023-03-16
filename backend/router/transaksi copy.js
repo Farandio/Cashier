@@ -7,15 +7,10 @@ const detail_transaksi = require("../models/index").detail_transaksi
 const menu = require("../models/index").menu
 const meja = require("../models/index").meja
 const user = require("../models/index").user
-
-const { Op } = require('sequelize')
-
 const auth = require("../auth")
 const { sequelize } = require("../models/index")
-const SECRET_KEY = "AHEAD"
+// const conn = require("../conn")
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
 
 const conn = mysql.createConnection({
     host: "localhost",
@@ -23,6 +18,11 @@ const conn = mysql.createConnection({
     password: "",
     database: "cashier",
 });
+
+const { Op } = require('sequelize')
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 app.get("/detail", auth, async (req, res) => {
     detail_transaksi.findAll({

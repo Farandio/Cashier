@@ -2,6 +2,7 @@ import React from "react";
 import $ from "jquery";
 import axios from "axios";
 import NavbarAdmin from "../../Navbar/NavbarAdmin";
+import Alert from "../../assets/Alert/Alert";
 
 export default class Meja extends React.Component {
     constructor() {
@@ -20,6 +21,7 @@ export default class Meja extends React.Component {
         if (localStorage.getItem("token") && user.role == "admin") {
             this.state.token = localStorage.getItem("token")
         } else {
+            <Alert />
             window.location = "/"
         }
     }
